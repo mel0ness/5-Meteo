@@ -1,20 +1,72 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AppMétéo</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    
-    <script src="main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AppMétéo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+
+  <div class="P5-mainDisplay">
+
+    <div class="P5-h1">Application <span class="P5-title">météo</span></div>
+    <div class="P5-loader">
+      <img src="./ressources/earth.png" alt="earth" class="P5-imgLoader">
+      <div class="P5-imgLoaderMove"></div>
+    </div>
+    <img class="P5-img" src="./ressources/jour/01d.svg" alt="current">
+    <div class="P5-temp">18°</div>
+    <div class="P5-localisation">Europe/Budapest</div>
+  </div>
+
+
+  <div class="P5-detailedDisplay">
+    <div class="P5-selection">
+      <div class="P5-button P5-active">Heures</div>
+      <div class="P5-button">Prévisions</div>
+    </div>
+    <div class="P5-hours">
+      <div class="P5-hour">
+        <div class="P5-time">9h</div>
+        <div class="P5-timeTemp">18°</div>
+      </div>
+      <div class="P5-hour">
+        <div class="P5-time">12h</div>
+        <div class="P5-timeTemp">21°</div>
+      </div>
+      <div class="P5-hour">
+        <div class="P5-time">15h</div>
+        <div class="P5-timeTemp">25°</div>
+      </div>
+      <div class="P5-hour">
+        <div class="P5-time">18h</div>
+        <div class="P5-timeTemp">23°</div>
+      </div>
+      <div class="P5-hour">
+        <div class="P5-time">21h</div>
+        <div class="P5-timeTemp">19°</div>
+      </div>
+      <div class="P5-hour">
+        <div class="P5-time">00h</div>
+        <div class="P5-timeTemp">17°</div>
+      </div>
+      <div class="P5-hour P5-lastHour">
+        <div class="P5-time">3h</div>
+        <div class="P5-timeTemp">15°</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
 </html>
