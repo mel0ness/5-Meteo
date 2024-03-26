@@ -35,3 +35,5 @@ console.log(nextDayToSet);
 console.log(new Date(three * 1000).toString());
 // api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lng}&lang=fr
 // api.openweathermap.org/data/3.0/onecall/timemachine?lat={lat}&lon={lng}&lang=fr&dt={time}
+
+// 1 Fetch global suivi d'une boucle de fetch pour les températures à certaines heures.
