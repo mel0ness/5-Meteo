@@ -19,13 +19,13 @@
   <div class="P5-mainDisplay">
 
     <div class="P5-h1">Application <span class="P5-title">météo</span></div>
-    <div class="P5-loader">
+    <div class="P5-loader" id="loader">
       <img src="./ressources/earth.png" alt="earth" class="P5-imgLoader">
       <div class="P5-imgLoaderMove"></div>
     </div>
-    <img class="P5-img" src="./ressources/jour/01d.svg" alt="current">
-    <div class="P5-temp">18°</div>
-    <div class="P5-localisation">Europe/Budapest</div>
+    <img class="P5-img P5-hidden P5-current" alt="current">
+    <div class="P5-temp P5-hidden P5-current">18°</div>
+    <div class="P5-localisation P5-hidden P5-current">Europe/Budapest</div>
   </div>
 
 
@@ -37,31 +37,31 @@
     <div class="P5-hours">
       <div class="P5-hour">
         <div class="P5-time">9h</div>
-        <div class="P5-timeTemp">18°</div>
+        <div class="P5-timeTemp" id="nine">/</div>
       </div>
       <div class="P5-hour">
         <div class="P5-time">12h</div>
-        <div class="P5-timeTemp">21°</div>
+        <div class="P5-timeTemp" id="noon">/</div>
       </div>
       <div class="P5-hour">
         <div class="P5-time">15h</div>
-        <div class="P5-timeTemp">25°</div>
+        <div class="P5-timeTemp" id="fiveteen">/</div>
       </div>
       <div class="P5-hour">
         <div class="P5-time">18h</div>
-        <div class="P5-timeTemp">23°</div>
+        <div class="P5-timeTemp" id="eighteen">/</div>
       </div>
       <div class="P5-hour">
         <div class="P5-time">21h</div>
-        <div class="P5-timeTemp">19°</div>
+        <div class="P5-timeTemp" id="twentyone">/</div>
       </div>
       <div class="P5-hour">
         <div class="P5-time">00h</div>
-        <div class="P5-timeTemp">17°</div>
+        <div class="P5-timeTemp" id="midnight">/</div>
       </div>
       <div class="P5-hour P5-lastHour">
         <div class="P5-time">3h</div>
-        <div class="P5-timeTemp">15°</div>
+        <div class="P5-timeTemp" id="three">/</div>
       </div>
     </div>
   </div>
