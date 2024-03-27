@@ -85,7 +85,7 @@ console.log(Results);
 const displayByHour=(e, f) => {
 const toChange = document.getElementById(f);
 setTimeout( function() {
-  toChange.innerText = e.toFixed(0);
+  toChange.innerText = `${e.toFixed(0)}°`;
 }
 , 1500)  
 
