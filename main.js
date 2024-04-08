@@ -1,5 +1,9 @@
 let APIKEY = "";
 
+const nextDay1 = new Date((new Date().getTime() + (24 * 60 * 60 * 1000))).toLocaleDateString("fr-FR", {weekday: "long"})
+const nextDay2 = new Date((new Date().getTime() + (48 * 60 * 60 * 1000))).toLocaleDateString("fr-FR", {weekday: "long"})
+const nextDay3 = new Date((new Date().getTime() + (72 * 60 * 60 * 1000))).toLocaleDateString("fr-FR", {weekday: "long"})
+const Previsions = document.getElementsByClassName("P5-day")
 const modaleBack = document.getElementById("modaleBack")
 const modaleAPI = document.getElementById("modaleAPI")
 const information = document.getElementById("information")
@@ -16,7 +20,6 @@ const currentDateToSet = new Date();
 const currentDate = (new Date()/1000).toFixed(0);
 const nextDay = (new Date().getTime() + (24 * 60 * 60 * 1000));
 const nextDayToSet = new Date(nextDay);
-// const nextDayToDisplay = new Date(nextDay).toString();
 const nine = currentDateToSet.setHours(9,0,0,0) / 1000;
 const noon = currentDateToSet.setHours(12,0,0,0) / 1000;
 const fiveteen = currentDateToSet.setHours(15,0,0,0) / 1000;
@@ -78,6 +81,7 @@ modaleBack.classList.add("P5-hidden")
   }
   else {
   displayCurrent(Results.timezone, Results.current.temp, Results.current.weather[0].icon);
+  displayNamePrevisions();
   displayPrevisions(tomorrow, 1, Results.daily)
   displayPrevisions(dayPlusOne, 2, Results.daily)
   displayPrevisions(dayPlusTwo, 3, Results.daily)}
@@ -120,6 +124,12 @@ setTimeout( function() {
 
 const displayPrevisions = (e, f, g) => {
 e.innerHTML = `<img class="P5-dayTempIMG" src="./ressources/jour/${g[f].weather[0].icon}.svg" alt="Kind of day prevision"> ${g[f].temp.day.toFixed(0)}°`
+}
+
+const displayNamePrevisions = () => {
+Previsions[0].innerText = nextDay1.substring(0, 3)
+Previsions[1].innerText = nextDay2.substring(0, 3)
+Previsions[2].innerText = nextDay3.substring(0, 3)
 }
 
 async function fetchByHour(e, f, g, h) {
