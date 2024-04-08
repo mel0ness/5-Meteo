@@ -3,6 +3,7 @@ let APIKEY = "";
 const nextDay1 = new Date((new Date().getTime() + (24 * 60 * 60 * 1000))).toLocaleDateString("fr-FR", {weekday: "long"})
 const nextDay2 = new Date((new Date().getTime() + (48 * 60 * 60 * 1000))).toLocaleDateString("fr-FR", {weekday: "long"})
 const nextDay3 = new Date((new Date().getTime() + (72 * 60 * 60 * 1000))).toLocaleDateString("fr-FR", {weekday: "long"})
+const currentHour = new Date().getHours();
 const Previsions = document.getElementsByClassName("P5-day")
 const modaleBack = document.getElementById("modaleBack")
 const modaleAPI = document.getElementById("modaleAPI")
@@ -16,20 +17,6 @@ const dayByDay = document.getElementById("dayByDay");
 const tomorrow = document.getElementById("tomorrow");
 const dayPlusOne = document.getElementById("dayPlusOne");
 const dayPlusTwo = document.getElementById("dayPlusTwo");
-const currentDateToSet = new Date();
-const currentDate = (new Date()/1000).toFixed(0);
-const nextDay = (new Date().getTime() + (24 * 60 * 60 * 1000));
-const nextDayToSet = new Date(nextDay);
-const nine = currentDateToSet.setHours(9,0,0,0) / 1000;
-const noon = currentDateToSet.setHours(12,0,0,0) / 1000;
-const fiveteen = currentDateToSet.setHours(15,0,0,0) / 1000;
-const eighteen = currentDateToSet.setHours(18,0,0,0) / 1000;
-const twentyone = currentDateToSet.setHours(21,0,0,0) / 1000;
-const midnight = nextDayToSet.setHours(0,0,0,0) / 1000;
-const three = nextDayToSet.setHours(3,0,0,0) / 1000;
-const arrayByHour = [nine, noon, fiveteen, eighteen, twentyone, midnight, three];
-const arrayByHourNames = ["nine", "noon", "fiveteen", "eighteen", "twentyone", "midnight", "three"];
-
 
 APIbutton.addEventListener("click", () => {
   if(APIkey.value === "") {
@@ -46,7 +33,6 @@ modaleBack.classList.add("P5-hidden")
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
           fetchCurrent(lat, lng);
-          fetchByHour(lat, lng, arrayByHour, arrayByHourNames);
         },
         (error) => {
           console.error("Error getting user location:", error);
@@ -76,11 +62,12 @@ modaleBack.classList.add("P5-hidden")
         information.classList.add("P5-error")
         information.innerText = "Votre plan ne vous permet pas autant de requêtes, veuillez réessayer plus tard!"
         APIkey.value = "";
+        break;
     }
-  
   }
   else {
   displayCurrent(Results.timezone, Results.current.temp, Results.current.weather[0].icon);
+  displayByHour(Results.hourly);
   displayNamePrevisions();
   displayPrevisions(tomorrow, 1, Results.daily)
   displayPrevisions(dayPlusOne, 2, Results.daily)
@@ -94,9 +81,6 @@ modaleBack.classList.add("P5-hidden")
   }
 
 })
-
-
-
 
 const displayCurrent = (e, f, g) => {
   const displayCurrentElements = document.getElementsByClassName("P5-current");
@@ -132,28 +116,20 @@ Previsions[1].innerText = nextDay2.substring(0, 3)
 Previsions[2].innerText = nextDay3.substring(0, 3)
 }
 
-async function fetchByHour(e, f, g, h) {
-
-for(let i = 0; i<g.length; i++){  
-  try {
-const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=${e}&lon=${f}&lang=fr&units=metric&dt=${g[i]}&appid=${APIKEY}`);
-const Results = await response.json();
-if(!Results.cod){
-displayByHour(Results.data[0].temp, h[i])}
+const displayByHour=(e) => {
+const toChangeTemp = document.getElementsByClassName("P5-time");
+const toChangeHour = document.getElementsByClassName("P5-hourPrev");
+for(let i=0; i<7; i++) {
+  const calcul = i*3 +3 + currentHour;
+  if(calcul >= 24) {
+    toChangeTemp[i].innerText = `${calcul - 24}h`
+    toChangeHour[i].innerText = `${e[(i+1)*3].temp.toFixed()}°`
   }
-  catch (error) {
-const Results = error;
-console.log(Results);
-  }}
+  else {
+    toChangeTemp[i].innerText = `${calcul}h`
+    toChangeHour[i].innerText = `${e[(i+1)*3].temp.toFixed()}°`
+  }
 }
-
-const displayByHour=(e, f) => {
-const toChange = document.getElementById(f);
-setTimeout( function() {
-  toChange.innerText = `${e.toFixed(0)}°`;
-}
-, 1500)  
-
 }
 
 hour.addEventListener("click", () => {

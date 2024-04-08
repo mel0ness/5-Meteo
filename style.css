@@ -262,3 +262,54 @@ left: -30px
 .P5-error {
   color: red;
 }
+
+@media(min-width: 768px) {
+  .P5-mainDisplay{
+    width: 520px;
+    height: 450px;
+  }
+
+  .P5-detailedDisplay {
+    width: 520px;
+    height: 175px;
+  }
+
+  .P5-time {
+    font-size: 1.3rem;
+  }
+  .P5-timeTemp {
+    font-size: 1.2rem;
+  }
+  .P5-hour {
+    height: 70px;
+    width: 60px;
+  }
+  .P5-hours {
+    margin-top: 25px;
+    justify-content: center;
+  }
+  .P5-img {
+    bottom: 15px;
+  }
+  .P5-temp {
+    bottom: 30px;
+  }
+  .P5-localisation {
+    bottom: 30px;
+  }
+  .P5-dayTempIMG {
+    width: 70px;
+    height: 70px;
+  }
+  .P5-dayTemp {
+    font-size: 1.3rem;
+  }
+  .P5-day {
+    font-size: 1.2rem;
+  }
+  .P5-days {
+    height: 90px;
+    margin-right: 10px;
+    padding-right: 10px;
+  }
+}
