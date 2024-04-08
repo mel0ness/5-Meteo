@@ -1,6 +1,17 @@
-const APIKEY = "877dafadaa2a6e53cd076de43a0dd27e";
+let APIKEY = "";
 
-
+const modaleBack = document.getElementById("modaleBack")
+const modaleAPI = document.getElementById("modaleAPI")
+const information = document.getElementById("information")
+const APIkey = document.getElementById("APIKEY");
+const APIbutton = document.getElementById("buttonAPI")
+const hour = document.getElementById("hour");
+const future = document.getElementById("future");
+const hourByHour = document.getElementById("hourByHour");
+const dayByDay = document.getElementById("dayByDay");
+const tomorrow = document.getElementById("tomorrow");
+const dayPlusOne = document.getElementById("dayPlusOne");
+const dayPlusTwo = document.getElementById("dayPlusTwo");
 const currentDateToSet = new Date();
 const currentDate = (new Date()/1000).toFixed(0);
 const nextDay = (new Date().getTime() + (24 * 60 * 60 * 1000));
@@ -17,33 +28,71 @@ const arrayByHour = [nine, noon, fiveteen, eighteen, twentyone, midnight, three]
 const arrayByHourNames = ["nine", "noon", "fiveteen", "eighteen", "twentyone", "midnight", "three"];
 
 
-if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        fetchCurrent(lat, lng);
-        fetchByHour(lat, lng, arrayByHour, arrayByHourNames);
-      },
-      (error) => {
-        console.error("Error getting user location:", error);
+APIbutton.addEventListener("click", () => {
+  if(APIkey.value === "") {
+    information.classList.add("P5-error")
+  }
+  else {
+    APIKEY = APIkey.value;
+modaleAPI.classList.add("P5-hidden")
+modaleBack.classList.add("P5-hidden")
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          fetchCurrent(lat, lng);
+          fetchByHour(lat, lng, arrayByHour, arrayByHourNames);
+        },
+        (error) => {
+          console.error("Error getting user location:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  
+  async function fetchCurrent(e, f) {
+      try {
+  const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${e}&lon=${f}&lang=fr&units=metric&appid=${APIKEY}`);
+  const Results = await response.json();
+
+  if(Results.cod) {
+    switch (Results.cod) {
+      case 401:
+        modaleAPI.classList.remove("P5-hidden")
+        modaleBack.classList.remove("P5-hidden")
+        information.classList.add("P5-error")
+        information.innerText = "Votre API n'est pas correcte, veuillez en entrer une valide"
+        APIkey.value = "";
+        break;
+      case 429:
+        modaleAPI.classList.remove("P5-hidden")
+        modaleBack.classList.remove("P5-hidden")
+        information.classList.add("P5-error")
+        information.innerText = "Votre plan ne vous permet pas autant de requêtes, veuillez réessayer plus tard!"
+        APIkey.value = "";
+    }
+  
+  }
+  else {
+  displayCurrent(Results.timezone, Results.current.temp, Results.current.weather[0].icon);
+  displayPrevisions(tomorrow, 1, Results.daily)
+  displayPrevisions(dayPlusOne, 2, Results.daily)
+  displayPrevisions(dayPlusTwo, 3, Results.daily)}
       }
-    );
-  } else {
-    console.error("Geolocation is not supported by this browser.");
+      catch (error) {
+  const Results = error;
+  console.log(Results);
+      }
+  }
   }
 
-async function fetchCurrent(e, f) {
-    try {
-const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${e}&lon=${f}&lang=fr&units=metric&appid=${APIKEY}`);
-const Results = await response.json();
-displayCurrent(Results.timezone, Results.current.temp, Results.current.weather[0].icon);
-    }
-    catch (error) {
-const Results = error;
-console.log(Results);
-    }
-}
+})
+
+
+
 
 const displayCurrent = (e, f, g) => {
   const displayCurrentElements = document.getElementsByClassName("P5-current");
@@ -58,6 +107,7 @@ const displayCurrent = (e, f, g) => {
   displayCurrentElements[2].textContent = e;
   displayCurrentElements[1].textContent = `${temp}°`;
 
+
 setTimeout( function() {
   loader.classList.add("P5-hidden");
   displayCurrentElements[0].classList.remove("P5-hidden");
@@ -68,13 +118,18 @@ setTimeout( function() {
 
 }
 
+const displayPrevisions = (e, f, g) => {
+e.innerHTML = `<img class="P5-dayTempIMG" src="./ressources/jour/${g[f].weather[0].icon}.svg" alt="Kind of day prevision"> ${g[f].temp.day.toFixed(0)}°`
+}
+
 async function fetchByHour(e, f, g, h) {
 
 for(let i = 0; i<g.length; i++){  
   try {
 const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=${e}&lon=${f}&lang=fr&units=metric&dt=${g[i]}&appid=${APIKEY}`);
 const Results = await response.json();
-displayByHour(Results.data[0].temp, h[i])
+if(!Results.cod){
+displayByHour(Results.data[0].temp, h[i])}
   }
   catch (error) {
 const Results = error;
@@ -90,3 +145,17 @@ setTimeout( function() {
 , 1500)  
 
 }
+
+hour.addEventListener("click", () => {
+hourByHour.classList.remove("P5-hidden");
+dayByDay.classList.add("P5-hidden");
+hour.classList.add("P5-active");
+future.classList.remove("P5-active");
+} )
+
+future.addEventListener("click", () => {
+  hourByHour.classList.add("P5-hidden");
+dayByDay.classList.remove("P5-hidden");
+hour.classList.remove("P5-active");
+future.classList.add("P5-active");
+})

@@ -16,6 +16,14 @@
 
 <body>
 
+  <div class="P5-modaleBack" id="modaleBack">
+    <div class="P5-modaleAPI" id="modaleAPI">
+      <div class="P5-information" id="information">Veuillez renseigner votre APIKEY openWeather pour continuer :</div>
+      <input type="text" class="P5-API" id="APIKEY">
+      <input type="button" class="P5-buttonAPI" value="Valider mon APIKEY" id="buttonAPI">
+    </div>
+  </div>
+
   <div class="P5-mainDisplay">
 
     <div class="P5-h1">Application <span class="P5-title">météo</span></div>
@@ -31,10 +39,10 @@
 
   <div class="P5-detailedDisplay">
     <div class="P5-selection">
-      <div class="P5-button P5-active">Heures</div>
-      <div class="P5-button">Prévisions</div>
+      <div class="P5-button P5-active" id="hour">Heures</div>
+      <div class="P5-button" id="future">Prévisions</div>
     </div>
-    <div class="P5-hours">
+    <div class="P5-hours" id="hourByHour">
       <div class="P5-hour">
         <div class="P5-time">9h</div>
         <div class="P5-timeTemp" id="nine">/</div>
@@ -64,9 +72,22 @@
         <div class="P5-timeTemp" id="three">/</div>
       </div>
     </div>
-  </div>
+    <div class="P5-hours P5-hidden" id="dayByDay">
+      <div class="P5-days">
+        <div class="P5-day">Demain</div>
+        <div class="P5-dayTemp" id="tomorrow"></div>
+      </div>
+      <div class="P5-days">
+        <div class="P5-day">J+2</div>
+        <div class="P5-dayTemp" id="dayPlusOne"></div>
+      </div>
+      <div class="P5-days P5-lastday">
+        <div class="P5-day">J+3</div>
+        <div class="P5-dayTemp" id="dayPlusTwo"></div>
+      </div>
+    </div>
 
-  <script src="main.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
