@@ -16,7 +16,7 @@ body {
 .P5-mainDisplay {
   position: relative;
   padding: 1px;
-  background-image: url("./ressources/gradient.jpg");
+  background-image: url("./ressources/gradient.webp");
   background-size: cover;
   width: 280px;
   height: 370px;
