@@ -182,7 +182,7 @@ body {
   content: '';
   width: 30px;
   height: 30px;
-  background-image: url('./ressources/sun.png');
+  background-image: url('./ressources/sun.webp');
   background-size: cover;
   position: absolute;
 top: -30px;
